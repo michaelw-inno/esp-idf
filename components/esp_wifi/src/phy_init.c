@@ -482,14 +482,6 @@ void esp_phy_release_init_data(const esp_phy_init_data_t* init_data)
 
 #else // CONFIG_ESP32_PHY_INIT_DATA_IN_PARTITION
 
-// phy_init_data.h will declare static 'phy_init_data' variable initialized with default init data
-
-const esp_phy_init_data_t* esp_phy_get_init_data(void)
-{
-    ESP_LOGD(TAG, "loading PHY init data from application binary");
-    return &phy_init_data;
-}
-
 void esp_phy_release_init_data(const esp_phy_init_data_t* init_data)
 {
     // no-op
@@ -573,13 +565,13 @@ static esp_err_t load_cal_data_from_nvs_handle(nvs_handle_t handle,
 
     err = nvs_get_u32(handle, PHY_CAL_VERSION_KEY, &cal_data_version);
     if (err != ESP_OK) {
-        ESP_LOGD(TAG, "%s: failed to get cal_version (0x%x)", __func__, err);
+        ESP_LOGE(TAG, "%s: failed to get cal_version (0x%x)", __func__, err);
         return err;
     }
     uint32_t cal_format_version = phy_get_rf_cal_version() & (~BIT(16));
     ESP_LOGV(TAG, "phy_get_rf_cal_version: %d\n", cal_format_version);
     if (cal_data_version != cal_format_version) {
-        ESP_LOGD(TAG, "%s: expected calibration data format %d, found %d",
+        ESP_LOGE(TAG, "%s: expected calibration data format %d, found %d",
                 __func__, cal_format_version, cal_data_version);
         return ESP_FAIL;
     }
@@ -587,7 +579,7 @@ static esp_err_t load_cal_data_from_nvs_handle(nvs_handle_t handle,
     size_t length = sizeof(cal_data_mac);
     err = nvs_get_blob(handle, PHY_CAL_MAC_KEY, cal_data_mac, &length);
     if (err != ESP_OK) {
-        ESP_LOGD(TAG, "%s: failed to get cal_mac (0x%x)", __func__, err);
+        ESP_LOGE(TAG, "%s: failed to get cal_mac (0x%x)", __func__, err);
         return err;
     }
     if (length != sizeof(cal_data_mac)) {
@@ -609,7 +601,7 @@ static esp_err_t load_cal_data_from_nvs_handle(nvs_handle_t handle,
         return err;
     }
     if (length != sizeof(*out_cal_data)) {
-        ESP_LOGD(TAG, "%s: invalid length of cal_data (%d)", __func__, length);
+        ESP_LOGE(TAG, "%s: invalid length of cal_data (%d)", __func__, length);
         return ESP_ERR_INVALID_SIZE;
     }
     return ESP_OK;

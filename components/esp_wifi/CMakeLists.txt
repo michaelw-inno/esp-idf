@@ -39,7 +39,7 @@ idf_component_register(SRCS "src/coexist.c"
                         "${idf_target}/esp_adapter.c"
                         "src/phy_override.c"
             INCLUDE_DIRS "include" "${idf_target}/include"
-            PRIV_REQUIRES wpa_supplicant nvs_flash esp_netif driver esp_timer esp_pm ${extra_priv_requires}
+            PRIV_REQUIRES wpa_supplicant nvs_flash esp_netif driver esp_timer esp_pm ubx_phy_cal ${extra_priv_requires}
             REQUIRES esp_event
             LDFRAGMENTS "${ldfragments}"
             EMBED_FILES ${embed_files}
