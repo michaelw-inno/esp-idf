@@ -41,6 +41,7 @@ idf_component_register(SRCS "${srcs}"
                     REQUIRES esp_event esp_phy esp_netif
                     PRIV_REQUIRES driver esptool_py esp_pm esp_timer nvs_flash
                                   wpa_supplicant hal lwip esp_coex ${extra_priv_requires}
+                                  wpa_supplicant hal ubx_phy_cal ${extra_priv_requires}
                     LDFRAGMENTS "${ldfragments}")
 
 if(CONFIG_ESP_WIFI_ENABLED)

@@ -587,11 +587,11 @@ void esp_phy_release_init_data(const esp_phy_init_data_t* init_data)
 
 // phy_init_data.h will declare static 'phy_init_data' variable initialized with default init data
 
-const esp_phy_init_data_t* esp_phy_get_init_data(void)
-{
-    ESP_LOGD(TAG, "loading PHY init data from application binary");
-    return &phy_init_data;
-}
+//const esp_phy_init_data_t* esp_phy_get_init_data(void)
+//{
+//    ESP_LOGD(TAG, "loading PHY init data from application binary");
+//    return &phy_init_data;
+//}
 
 void esp_phy_release_init_data(const esp_phy_init_data_t* init_data)
 {
