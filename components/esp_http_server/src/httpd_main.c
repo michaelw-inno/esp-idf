@@ -118,6 +118,9 @@ static esp_err_t httpd_accept_conn(struct httpd_data *hd, int listen_fd)
         ESP_LOGE(TAG, LOG_FMT("session creation failed"));
         goto exit;
     }
+
+    httpd_sess_update_lru_counter(hd->hd_sd->handle, new_fd);
+
     ESP_LOGD(TAG, LOG_FMT("complete"));
     esp_http_server_dispatch_event(HTTP_SERVER_EVENT_ON_CONNECTED, &new_fd, sizeof(int));
     return ESP_OK;
